@@ -20,13 +20,21 @@
 
 - Le nom table pose problème en SQL car c'est un mot réservé.
 
+## Etape 6 : Les Paiements 
+### Piège. Pourquoi une colonne montant_paye dans la table des commandes ne suffit-elle pas ? Le mode de paiement : contrainte CHECK ou table de référence ? Comparez les deux
+- le montant payé dans la table des commandes ne suffit pas car une commande peut être payée par plusieurs modes de paiement. Il est donc nécessaire d'avoir une table de référence pour les types de paiements et une table de détails pour enregistrer les montants payés par chaque type de paiement.
+
+
 
 ### Shema
 - plat(**id**,libelle,pu,#categorie_id) 
 - categore(**id**,libelle) 
-- commande(**id**,date,client_id,serveur_id,table_salle_id) *(modifier)*
+- commande(**id**,date,client_id,serveur_id,table_salle_id) 
 - commande_detail(**id**,#commande_id,#plat_id,quantite) 
 - client(**id**,nom,prenom) 
-- serveur(**id**,nom,prenom) *(nouveau)*
-- table_salle(**id**,numero) *(nouveau)*
+- serveur(**id**,nom,prenom) 
+- table_salle(**id**,numero) 
+- paiement(**id**,#commande_id) *(nouveau)*
+- type_paiement(**id**,libelle) *(nouveau)*
+- paiement_detail(**id**,#paiement_id,montant,#type_paiement_id) *(nouveau)*
 

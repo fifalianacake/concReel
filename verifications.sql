@@ -29,3 +29,16 @@ LEFT JOIN commande c ON s.id = c.serveur_id
 LEFT JOIN commande_detail cd ON c.id = cd.commande_id
 LEFT JOIN plats p ON cd.plat_id = p.id
 GROUP BY s.id, s.nom, s.prenom;
+
+-- Etape 6 Vérification : liste des commandes non soldées avec le montant dû, le montant payé et le reste à payer.
+SELECT c.id, 
+       SUM(p.pu * cd.quantite) AS montant_du, 
+       COALESCE(SUM(pd.montant), 0) AS montant_paye, 
+       SUM(p.pu * cd.quantite) - COALESCE(SUM(pd.montant), 0) AS reste_a_payer
+FROM commande c
+LEFT JOIN commande_detail cd ON c.id = cd.commande_id
+LEFT JOIN plats p ON cd.plat_id = p.id
+LEFT JOIN paiement pa ON c.id = pa.commande_id
+LEFT JOIN paiement_detail pd ON pa.id = pd.paiement_id
+GROUP BY c.id
+HAVING SUM(p.pu * cd.quantite) - COALESCE(SUM(pd.montant), 0) > 0;
