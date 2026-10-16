@@ -13,3 +13,11 @@ from commande c
 LEFT JOIN commande_detail cd ON c.id = cd.commande_id
 LEFT JOIN plats p ON cd.plat_id = p.id
 GROUP BY c.id;
+
+-- Vérification : liste des commandes avec l nom du client, en affichant « client de passage » quand il n'y en a pas.
+SELECT c.id, case
+WHEN cl.nom IS NOT NULL THEN cl.nom || ' ' || cl.prenom
+ELSE 'client de passage'
+END AS nom_client
+FROM commande c
+LEFT JOIN client cl ON c.client_id = cl.id;

@@ -9,8 +9,14 @@
 ## Etape 3 : Les commandes
 - J'ai placez les qte dans commande-detail
 
+## Etape 4 : Les Habitués
+- Ma cle etrangere client_id est NOT NULL. Il faut utiliser une jointure LEFT JOIN pour ne perdre aucune commande.
+
+
 ### Shema
 - plat(**id**,libelle,pu,#categorie_id) *(modifier)*
 - categore(**id**,libelle) *(nouveau)*
-- commande(**id**,date) *(nouveau)*
+- commande(**id**,date,client_id) *(modifier)*
 - commande (**id**,#commande_id,#plat_id,quantite) *(nouveau*)
+- client(**id**,nom,prenom) *(nouveau)*
+
